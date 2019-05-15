@@ -13,46 +13,57 @@ ConsoleModule.config(['$routeProvider', '$locationProvider','$sceDelegateProvide
 ConsoleModule.controller('wcontroller', ['$scope', '$http', '$routeParams', '$timeout', '$sce',
     function($scope, $http, $routeParams, $timeout, $sce) {
 
-    $scope.somemessage = "Some weather";
-    $scope.city1City = "";
+    $scope.somemessage = "Some NZ weather";
+    $scope.zip1City = "";
+    $scope.zip1Weather = "";
 
-    $scope.city = function(which) {
+    $scope.zip = function(which) {
 
         var data = "";
         if(which === 1) {
-            data = $scope.city1m;
+            data = $scope.zip1m;
         } else if(which === 2) {
-            data = $scope.city2m;
+            data = $scope.zip2m;
         } else if(which === 3) {
-            data = $scope.city3m;
+            data = $scope.zip3m;
         } else if(which === 4) {
-            data = $scope.city4m;
+            data = $scope.zip4m;
         } 
 
+        //if(data.length === 4) {
             $http({
                 method: "GET",
                 url: '/api/v1/getWeather?city=' + data
             }).then( function(response) {
                 if(which === 1) {
-                    $scope.city1Weather = response.data.weather;
+                    $scope.zip1City = response.data.city;
+                    $scope.zip1Weather = response.data.weather;
                 } else if(which === 2) {
-                    $scope.city2Weather = response.data.weather;
+                    $scope.zip2City = response.data.city;
+                    $scope.zip2Weather = response.data.weather;
                 } else if(which === 3) {
-                    $scope.city3Weather = response.data.weather;
+                    $scope.zip3City = response.data.city;
+                    $scope.zip3Weather = response.data.weather;
                 } else if(which === 4) {
-                    $scope.city4Weather = response.data.weather;
+                    $scope.zip4City = response.data.city;
+                    $scope.zip4Weather = response.data.weather;
                 } 
             });
-            
+        //} else {
             if(which === 1) {
-                $scope.city1Weather = "";
-            } else if(which === 2) {
-                $scope.city2Weather = "";
-            } else if(which === 3) {
-                $scope.city3Weather = "";
-            } else if(which === 4) {
-                $scope.city4Weather = "";
-            } 
+                    $scope.zip1City = "";
+                    $scope.zip1Weather = "";
+                } else if(which === 2) {
+                    $scope.zip2City = "";
+                    $scope.zip2Weather = "";
+                } else if(which === 3) {
+                    $scope.zip3City = "";
+                    $scope.zip3Weather = "";
+                } else if(which === 4) {
+                    $scope.zip4City = "";
+                    $scope.zip4Weather = "";
+                } 
+        //}
     };
     
 }]);
