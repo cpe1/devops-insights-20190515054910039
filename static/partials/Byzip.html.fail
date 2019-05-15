@@ -1,5 +1,5 @@
 <div>
-    <div class="underline" style="float:left">Current Weather</div>
+    <div class="underline" style="float:left">Current NZ Weather</div>
     <div style="float:left; width:100%; padding-left:15px">
       <div style="float:left; width:100%">
       	<div id="zipcode" class="headerText" style="width:10em">Zip Code</div>
