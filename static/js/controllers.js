@@ -29,36 +29,30 @@ ConsoleModule.controller('wcontroller', ['$scope', '$http', '$routeParams', '$ti
             data = $scope.city4m;
         } 
 
-        if(data.length === 5) {
             $http({
                 method: "GET",
                 url: '/api/v1/getWeather?city=' + data
             }).then( function(response) {
                 if(which === 1) {
-                    $scope.city1City = response.data.city;
                     $scope.city1Weather = response.data.weather;
                 } else if(which === 2) {
-                    $scope.city2City = response.data.city;
                     $scope.city2Weather = response.data.weather;
                 } else if(which === 3) {
-                    $scope.city3City = response.data.city;
                     $scope.city3Weather = response.data.weather;
                 } else if(which === 4) {
-                    $scope.city4City = response.data.city;
                     $scope.city4Weather = response.data.weather;
                 } 
             });
-        } else {
+            
             if(which === 1) {
-                    $scope.city1Weather = "";
-                } else if(which === 2) {
-                    $scope.city2Weather = "";
-                } else if(which === 3) {
-                    $scope.city3Weather = "";
-                } else if(which === 4) {
-                    $scope.city4Weather = "";
-                } 
-        }
+                $scope.city1Weather = "";
+            } else if(which === 2) {
+                $scope.city2Weather = "";
+            } else if(which === 3) {
+                $scope.city3Weather = "";
+            } else if(which === 4) {
+                $scope.city4Weather = "";
+            } 
     };
     
 }]);
