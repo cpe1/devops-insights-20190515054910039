@@ -88,7 +88,7 @@
 
       var body = {
         cod: 200,
-        //name: 'Auckland',
+        name: 'Auckland',
         weather: [
           {
             main: 'cold'
@@ -108,7 +108,7 @@
       apiv1.getWeather(reqMock, resMock);
 
       assert(resMock.status.lastCall.calledWith(200), 'Unexpected response:' + resMock.status.lastCall.args);
-      assert(resMock.send.lastCall.args[0].name === 'Auckland', 'Unexpected response:' + resMock.send.lastCall.args[0].id);
+      assert(resMock.send.lastCall.args[0].name === 'Auckland', 'Unexpected response:' + resMock.send.lastCall.args[0].name);
       assert(resMock.send.lastCall.args[0].weather === 'Conditions are cold and temperature is 20.12 C', 'Unexpected response:' + resMock.send.lastCall.args[0].weather);
     });
   });  

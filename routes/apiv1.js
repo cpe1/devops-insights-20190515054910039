@@ -12,7 +12,7 @@ var OPENWEATHERURL = "http://api.openweathermap.org/data/2.5/weather?appid=6b7b4
 exports.getWeather = function(req, res) {
 	var city = req.query.city;
 	if( (city === null) || (typeof(city) === 'undefined') ) {
-		return res.status(400).send('city missing');
+		return res.status(400).send({msg:'city missing'});
 	}
 
 	var aurl = OPENWEATHERURL + '&q=' + city + ',nz';
@@ -49,7 +49,7 @@ exports.getWeatherByCoordinates = function(req, res) {
 	var lon = req.query.lon;
 
 	if(lat === null || lon === null || typeof(lat) === 'undefined' || typeof(lon) === 'undefined'){
-		return res.status(400).send('coordinates missing');
+		return res.status(400).send({msg:'coordinates missing'});
 	}
 
 	var aurl = OPENWEATHERURL + '&lat='+lat+'&lon='+lon;
