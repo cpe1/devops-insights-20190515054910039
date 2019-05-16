@@ -108,8 +108,124 @@
       apiv1.getWeather(reqMock, resMock);
 
       assert(resMock.status.lastCall.calledWith(200), 'Unexpected response:' + resMock.status.lastCall.args);
-      //assert(resMock.send.lastCall.args[0].city === 'Auckland', 'Unexpected response:' + resMock.send.lastCall.args[0].city);
+      assert(resMock.send.lastCall.args[0].id === '2190324', 'Unexpected response:' + resMock.send.lastCall.args[0].id);
       assert(resMock.send.lastCall.args[0].weather === 'Conditions are cold and temperature is 20.12 C', 'Unexpected response:' + resMock.send.lastCall.args[0].weather);
     });
   });  
+
+//http://api.openweathermap.org/data/2.5/weather?appid=6b7b471967dd0851d0010cdecf28f829&units=metric&q=Hamilton,nz
+  describe('Get Weather By Coordinates', function() {
+
+    it('without coordinates', function() {
+      reqMock = {
+        query: {
+
+        }
+      };
+
+      apiv1.getWeather(reqMock, resMock);
+
+      assert(resMock.status.lastCall.calledWith(400), 'Unexpected status code:' + resMock.status.lastCall.args);
+    });
+
+    //Hamilton coordinates: {"lon":175.28,"lat":-37.79}
+    it('with valid coordinates and error from request call', function() {
+      reqMock = {
+        query: {
+          lat: '-37.79',
+          lon: '175.28'
+        }
+      };
+
+      var request = function( obj, callback ){
+        callback("error", null, null);
+      };
+
+      apiv1.__set__("request", request);
+
+      apiv1.getWeatherByCoordinates(reqMock, resMock);
+
+      assert(resMock.status.lastCall.calledWith(400), 'Unexpected response:' + resMock.status.lastCall.args);
+      assert(resMock.send.lastCall.calledWith('Failed to get the data'), 'Unexpected response:' + resMock.send.lastCall.args);
+    });
+
+    /*
+      only lat given without lon
+    */
+    it('with incomplete coordinates - no lon', function() {
+      reqMock = {
+        query: {
+          lat: '-37.79'
+        }
+      };
+
+      var request = function( obj, callback ){
+        callback(null, null, {});
+      };
+
+      apiv1.__set__("request", request);
+
+      apiv1.getWeatherByCoordinates(reqMock, resMock);
+
+      assert(resMock.status.lastCall.calledWith(400), 'Unexpected response:' + resMock.status.lastCall.args);
+      assert(resMock.send.lastCall.args[0].msg === 'Failed', 'Unexpected response:' + resMock.send.lastCall.args);
+    });
+
+        /*
+      only lat given without lon
+    */
+   it('with incomplete coordinates - no lat', function() {
+      reqMock = {
+        query: {
+          lon: '175.28'
+        }
+      };
+
+      var request = function( obj, callback ){
+        callback(null, null, {});
+      };
+
+      apiv1.__set__("request", request);
+
+      apiv1.getWeatherByCoordinates(reqMock, resMock);
+
+      assert(resMock.status.lastCall.calledWith(400), 'Unexpected response:' + resMock.status.lastCall.args);
+      assert(resMock.send.lastCall.args[0].msg === 'Failed', 'Unexpected response:' + resMock.send.lastCall.args);
+    });
+
+    it('with valid coordinates', function() {
+      reqMock = {
+        query: {
+          lat: '-37.79',
+          lon: '175.28'
+        }
+      };
+
+      var body = {
+        cod: 200,
+        weather: [
+          {
+            main: 'cold'
+          }
+        ],
+        main: {
+          temp: 20.12
+        }
+      };
+
+      var request = function( obj, callback ){
+        callback(null, null, body);
+      };
+
+      apiv1.__set__("request", request);
+
+      apiv1.getWeatherByCoordinates(reqMock, resMock);
+
+      assert(resMock.status.lastCall.calledWith(200), 'Unexpected response:' + resMock.status.lastCall.args);
+      assert(resMock.send.lastCall.args[0].id === '2190324', 'Unexpected response:' + resMock.send.lastCall.args[0].id);
+      assert(resMock.send.lastCall.args[0].weather === 'Conditions are cold and temperature is 20.12 C', 'Unexpected response:' + resMock.send.lastCall.args[0].weather);
+    });
+
+  });  
+
 }());

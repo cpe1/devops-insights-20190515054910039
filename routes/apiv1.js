@@ -27,8 +27,12 @@ exports.getWeather = function(req, res) {
     		//console.error("Failed to send request to openweathermap.org", err);
     	} else {
     		if(body.cod === 200) {
-    			var weath = "Conditions are " + body.weather[0].main + " and temperature is " + body.main.temp + ' C';
-    			var response = {weather: weath};
+				var weath = "Conditions are " + body.weather[0].main + " and temperature is " + body.main.temp + ' C';
+				var id = body.id;
+				var response = {
+					id: id,
+					weather: weath
+				};
     			return res.status(200).send(response);
     		} else {
                 return res.status(400).send({msg:'Failed'});
@@ -60,10 +64,12 @@ exports.getWeatherByCoordinates = function(req, res) {
     	} else {
     		if(body.cod === 200) {
 				var name = body.name;
-    			var weath = "Conditions are " + body.weather[0].main + " and temperature is " + body.main.temp + ' C';
+				var weath = "Conditions are " + body.weather[0].main + " and temperature is " + body.main.temp + ' C';
+				var id = body.id;
 				var response = {
 					name: name,
-					weather: weath
+					weather: weath,
+					id: id
 				};
     			return res.status(200).send(response);
     		} else {
