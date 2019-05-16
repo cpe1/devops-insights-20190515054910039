@@ -1,6 +1,6 @@
 # Current NZ Weather
 
-#### COMPX341-19A(HAM) Cherese Eriepa - 1224717
+#### COMPX341-19A(HAM) Cherese Eriepa - 1224817
 
 ---
 
