@@ -11,10 +11,28 @@
         <script src="/js/controllers.js"></script>
     </head>
 
-    <body>
+    <body onload="initilise()">
         <div float="left">
             <% include includes/mainbody %>
         </div>
+        <div>
+            <div id="map"></div>
+            <div id="clickweather" class="underline ng-binding"></div>
+        </div>
+
+        <script>
+            var map;
+            function initMap() {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: -40.9006, lng: 174.8860},
+                    zoom: 5
+                });
+            }
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxZVC-04q9nZ0ArZhhU3ipu87Ker8rUfs&callback=initMap"
+        async defer></script>
+        </script>
+        
     </body>
 
     <script>

@@ -28,8 +28,8 @@
           		assert.fail('Failed to get the response');
           	} else {
               assert.equal(resp.statusCode, 200);
-              //var pbody = JSON.parse(body);
-              //assert((pbody.city === 'Hamilton') || (pbody.city === 'Round Rock'), "City name does not match");
+              var pbody = JSON.parse(body);
+              assert(pbody.name === 'Hamilton', "City name does not match");
               done();
             }
         });
@@ -51,7 +51,7 @@
               done();
             }
         });
-    	});
+        });
 
       it('with another valid city name', function(done) {
         if(!appUrl) {
@@ -66,11 +66,79 @@
           		assert.fail('Failed to get the response');
           	} else {
               assert.equal(resp.statusCode, 200);
-              //var pbody = JSON.parse(body);
-              //assert(pbody.city === 'Auckland', "City name does not match");
+              var pbody = JSON.parse(body);
+              assert(pbody.name === 'Auckland', "City name does not match");
               done();
             }
         });
     	});
+    });
+
+    
+    describe('Get Weather By Coordinates', function() {
+
+        //for Hamilton the lat and lon are: "lon":175.28,"lat":-37.79
+        it('with valid lat and lon', function(done) {
+            if(!appUrl) {
+                assert.fail("Environment variable APP_URL is not defined");
+                return done();
+            }
+            request({
+                  method: 'GET',
+                  url: appUrl + '/api/v1/getWeatherByCoordinates?lon=175.28&lat=-37.79'
+              }, function(err, resp, body) {
+                  if(err) {
+                      assert.fail('Failed to get the response');
+                  } else {
+                  assert.equal(resp.statusCode, 200);
+                  var pbody = JSON.parse(body);
+                  assert(pbody.name === 'Hamilton', "City name does not match");
+                  done();
+                }
+            });
+        });
+
+        it('without lat and lon', function(done) {
+            if(!appUrl) {
+                assert.fail("Environment variable APP_URL is not defined");
+                return done();
+            }
+            request({
+                  method: 'GET',
+                  url: appUrl + '/api/v1/getWeatherByCoordinates'
+              }, /* @callback */ function(err, resp, body) {
+                  if(err) {
+                      assert.fail('Failed to get the response');
+                  } else {
+                  assert.equal(resp.statusCode, 400);
+                  done();
+                }
+            });
+        });
+
+        //coordinates for auckland are: {"lon":174.77,"lat":-36.85} 
+        //ID for auckland is: {"id":2193733}
+        it('with another valid lat and lon', function(done) {
+            if(!appUrl) {
+                assert.fail("Environment variable APP_URL is not defined");
+                return done();
+            }
+            request({
+                  method: 'GET',
+                  url: appUrl + '/api/v1/getWeatherByCoordinates?lat=-36.85&lon=174.77'
+              }, function(err, resp, body) {
+                  if(err) {
+                      assert.fail('Failed to get the response');
+                  } else {
+                  assert.equal(resp.statusCode, 200);
+                  var pbody = JSON.parse(body);
+                  assert(pbody.name === 'Auckland', "City name does not match");
+                  done();
+                }
+            });
+        });
+
+
+
     });
 })();

@@ -235,3 +235,19 @@ td {
 .x.axis path {
 	display: none;
 }
+#map {
+    position: relative;
+    margin-left: 25px;
+    width: 27em;
+    height: 27em;
+    overflow: hidden;
+    display: inline-block;
+    float: left;
+}
+#clickweather {
+    position: relative;
+    height: 25px;
+    margin-left: 25px;
+    float: left;
+    width: 600px;
+}
