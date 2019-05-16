@@ -28,10 +28,8 @@ exports.getWeather = function(req, res) {
     	} else {
     		if(body.cod === 200) {
 				var weath = "Conditions are " + body.weather[0].main + " and temperature is " + body.main.temp + ' C';
-				var id = body.id;
 				var response = {
 					name: body.name,
-					id: id,
 					weather: weath
 				};
     			return res.status(200).send(response);
@@ -66,11 +64,9 @@ exports.getWeatherByCoordinates = function(req, res) {
     		if(body.cod === 200) {
 				var name = body.name;
 				var weath = "Conditions are " + body.weather[0].main + " and temperature is " + body.main.temp + ' C';
-				var id = body.id;
 				var response = {
 					name: name,
-					weather: weath,
-					id: id
+					weather: weath
 				};
     			return res.status(200).send(response);
     		} else {
