@@ -30,6 +30,7 @@ exports.getWeather = function(req, res) {
 				var weath = "Conditions are " + body.weather[0].main + " and temperature is " + body.main.temp + ' C';
 				var id = body.id;
 				var response = {
+					name: body.name,
 					id: id,
 					weather: weath
 				};
