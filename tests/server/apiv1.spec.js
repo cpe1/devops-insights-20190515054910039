@@ -149,13 +149,11 @@
       assert(resMock.send.lastCall.calledWith('Failed to get the data'), 'Unexpected response:' + resMock.send.lastCall.args);
     });
 
-    /*
-      only lat given without lon
-    */
-    it('with incomplete coordinates - no lon', function() {
+    it('with incomplete coordinates', function(){
       reqMock = {
         query: {
-          lat: '-37.79'
+          lat: " ",
+          lon: " "
         }
       };
 
@@ -168,29 +166,7 @@
       apiv1.getWeatherByCoordinates(reqMock, resMock);
 
       assert(resMock.status.lastCall.calledWith(400), 'Unexpected response:' + resMock.status.lastCall.args);
-      assert(resMock.send.lastCall.args[0].msg === 'coordinates missing', 'Unexpected response:' + resMock.send.lastCall.args);
-    });
-
-        /*
-      only lat given without lon
-    */
-   it('with incomplete coordinates - no lat', function() {
-      reqMock = {
-        query: {
-          lon: '175.28'
-        }
-      };
-
-      var request = function( obj, callback ){
-        callback(null, null, {});
-      };
-
-      apiv1.__set__("request", request);
-
-      apiv1.getWeatherByCoordinates(reqMock, resMock);
-
-      assert(resMock.status.lastCall.calledWith(400), 'Unexpected response:' + resMock.status.lastCall.args);
-      assert(resMock.send.lastCall.args[0].msg === 'coordinates missing', 'Unexpected response:' + resMock.send.lastCall.args);
+      assert(resMock.send.lastCall.args[0].msg === 'Failed', 'Unexpected response:' + resMock.send.lastCall.args);
     });
 
     it('with valid coordinates', function() {
