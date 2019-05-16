@@ -123,7 +123,7 @@
         }
       };
 
-      apiv1.getWeather(reqMock, resMock);
+      apiv1.getWeatherByCoordinates(reqMock, resMock);
 
       assert(resMock.status.lastCall.calledWith(400), 'Unexpected status code:' + resMock.status.lastCall.args);
     });
