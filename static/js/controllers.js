@@ -62,23 +62,20 @@ ConsoleModule.controller('wcontroller', ['$scope', '$http', '$routeParams', '$ti
                 if(which === 1) {
                     $scope.city1Weather = response.data.weather;
                     citySearch($scope.city1m, 0);
+                    insertIntoDB($http, $scope.city1m);
                 } else if(which === 2) {
                     $scope.city2Weather = response.data.weather;
                     citySearch($scope.city2m, 1);
+                    insertIntoDB($http, $scope.city2m);
                 } else if(which === 3) {
                     $scope.city3Weather = response.data.weather;
                     citySearch($scope.city3m, 2);
+                    insertIntoDB($http, $scope.city3m);
                 } else if(which === 4) {
                     $scope.city4Weather = response.data.weather;
                     citySearch($scope.city4m, 3);
+                    insertIntoDB($http, $scope.city4m);
                 }
-
-                //insert the new search result into the db table 'Location'
-                
-                
-                //update the recently visited list
-
-
             });
             if(which === 1) {
                 $scope.city1Weather = "";
@@ -92,28 +89,6 @@ ConsoleModule.controller('wcontroller', ['$scope', '$http', '$routeParams', '$ti
         };    
     }]);
     
-/*
-    a function that iterates through the list of markers and displays them all on the map, it also
-    creates the bounds to move the map around the bounds.
-
-function placeMarkers(){
-    var i;
-    for( i = 0; i < markers.length; i++ ) {
-        if(markers[i] != null){
-            bounds.extend(markers[i]);
-            marker = new google.maps.Marker({
-                position: markers[i],
-                map: map
-            });
-        }else{
-            
-        }
-    }
-    //center the map around the bounds of the locations
-    map.fitBounds(bounds);
-}
-*/
-
 function initMarkers(){
     var marker1 = new google.maps.Marker({
         map: map
@@ -168,4 +143,17 @@ function citySearch(city, pos) {
                 }
             }
         });
+}
+
+/*
+    Sends a request to the server to insert a city into the database
+*/
+function insertIntoDB($http, city){
+    $http({
+        method: "GET",
+        url: '/api/v1/executeSQLStatement?city=' + city
+    }).then( function(response) {
+        //get the response from the 
+        console.log(response);
+    });
 }
