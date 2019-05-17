@@ -8,9 +8,7 @@
     "bower": "^1.3.12",
     "ejs": "*",
     "express": "*",
-    "request": "^2.65.0",
-    "sequelize": "*",
-    "ibm_db": "*"
+    "request": "^2.65.0"
   },
   "engines": {
     "node": "4.2.1"
