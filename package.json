@@ -9,7 +9,7 @@
     "ejs": "*",
     "express": "*",
     "request": "^2.65.0",
-    "ibm_db": "^2.5.1"
+    "ibm_db": "*"
   },
   "engines": {
     "node": "4.2.1"
