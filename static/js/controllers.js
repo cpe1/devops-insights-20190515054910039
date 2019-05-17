@@ -71,7 +71,14 @@ ConsoleModule.controller('wcontroller', ['$scope', '$http', '$routeParams', '$ti
                 } else if(which === 4) {
                     $scope.city4Weather = response.data.weather;
                     citySearch($scope.city4m, 3);
-                } 
+                }
+
+                //insert the new search result into the db table 'Location'
+                
+                
+                //update the recently visited list
+
+
             });
             if(which === 1) {
                 $scope.city1Weather = "";
@@ -82,8 +89,8 @@ ConsoleModule.controller('wcontroller', ['$scope', '$http', '$routeParams', '$ti
             } else if(which === 4) {
                 $scope.city4Weather = "";
             } 
-    };    
-}]);
+        };    
+    }]);
     
 /*
     a function that iterates through the list of markers and displays them all on the map, it also
@@ -106,7 +113,6 @@ function placeMarkers(){
     map.fitBounds(bounds);
 }
 */
-
 
 function initMarkers(){
     var marker1 = new google.maps.Marker({
