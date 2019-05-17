@@ -9,6 +9,7 @@
     "ejs": "*",
     "express": "*",
     "request": "^2.65.0",
+    "sequelize": "*",
     "ibm_db": "*"
   },
   "engines": {
