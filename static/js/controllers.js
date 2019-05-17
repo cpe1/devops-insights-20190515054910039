@@ -154,6 +154,6 @@ function insertIntoDB($http, city){
         url: '/api/v1/executeSQLStatement?city=' + city
     }).then( function(response) {
         //get the response from the 
-        console.log(response);
+        console.log(response)
     });
 }

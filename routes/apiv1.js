@@ -25,9 +25,9 @@ var db2id = {
 	"uri": "db2://mbv31878:fbjvdr-lmlzvwtmk@dashdb-txn-sbox-yp-dal09-03.services.dal.bluemix.net:50000/BLUDB",
 	"db": "BLUDB",
 	"dsn": "DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-dal09-03.services.dal.bluemix.net;PORT=50000;PROTOCOL=TCPIP;UID=mbv31878;PWD=fbjvdr-lmlzvwtmk;",
-	"username": "",
+	"username": "mbv31878",
 	"ssljdbcurl": "jdbc:db2://dashdb-txn-sbox-yp-dal09-03.services.dal.bluemix.net:50001/BLUDB:sslConnection=true;"
-};
+  };
 var api = '/dbapi/v3';
 var host = db2id['https_url']+ api;
 
@@ -102,7 +102,7 @@ exports.executeSQLStatement = function(req, res) {
 
 	//check we have received a value for the name
 	if( (city === null) || (typeof(city) === 'undefined') ) {
-		return res.status(400).send('name missing');
+		return res.status(400).send('city missing');
 	}
 
 	auth_header = {
